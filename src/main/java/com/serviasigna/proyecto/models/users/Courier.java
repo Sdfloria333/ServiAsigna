@@ -1,4 +1,4 @@
-package com.serviasigna.proyecto.models.usuarios;
+package com.serviasigna.proyecto.models.users;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,8 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "CENTRAL")
-public class Central {
+@Table(name = "DOMICILIARIO")
+public class Courier {
 
     @Id
     @Column(name = "CEDULA", length = 20, nullable = false)
@@ -19,7 +19,7 @@ public class Central {
     @Column(name = "ESTADO", length = 10, nullable = false)
     private String state;
 
-    public Central() {
+    public Courier() {
     }
 
     public String getDocument() {
