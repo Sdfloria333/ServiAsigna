@@ -11,47 +11,47 @@ public class Central {
 
     @Id
     @Column(name = "CEDULA", length = 20, nullable = false)
-    private String cedula;
+    private String document;
     @Column(name = "NOMBRE", length = 15, nullable = false)
-    private String nombre;
+    private String name;
     @Column(name = "TELEFONO", length = 10, nullable = false)
-    private String telefono;
+    private String phone;
     @Column(name = "ESTADO", length = 10, nullable = false)
-    private String estado;
+    private String state;
 
     public Central() {
     }
 
-    public String getCedula() {
-        return cedula;
+    public String getDocument() {
+        return document;
     }
 
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
+    public void setDocument(String document) {
+        this.document = document;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getState() {
+        return state;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setState(String state) {
+        this.state = state;
     }
 
 }
