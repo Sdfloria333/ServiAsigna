@@ -33,7 +33,7 @@ public class CentralService {
     // buscar central por cedula
     public Central getCentralById(String document) {
         return centralRepository.findById(document)
-                .orElseThrow(() -> new RuntimeException("Central no encontrada con ID: " + id));
+                .orElseThrow(() -> new RuntimeException("Central no encontrada con cedula: " + document));
     }
 
     // FR-C04: Cambiar estado (ACTIVE / INACTIVE)
