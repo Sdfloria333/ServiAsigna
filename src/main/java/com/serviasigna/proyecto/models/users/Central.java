@@ -17,7 +17,7 @@ public class Central {
     @Column(name = "TELEFONO", length = 10, nullable = false)
     private String phone;
     @Column(name = "ESTADO", length = 10, nullable = false)
-    private String status;
+    private Status status;
 
     public Central() {
     }
@@ -46,12 +46,12 @@ public class Central {
         this.phone = phone;
     }
 
-    public String getState() {
-        return status;
+    public void setStatus(Status state) {
+        this.status = state;
     }
 
-    public void setState(String state) {
-        this.status = state;
+    public Status getStatus() {
+        return status;
     }
 
 }
