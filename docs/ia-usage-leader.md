@@ -51,3 +51,12 @@
 11. Quiero agregar `@GetMapping("/domiciliarios")` y pasar la lista con `model.addAttribute("listaDomiciliarios", ...)` para recorrerla con `th:each` en `domiciliarios.html`. ¿Cómo lo hago?
 12. Te paso el comprimido del proyecto: revisa si las capas de Courier (entidad, repositorio, servicio, controlador y rutas web) quedaron bien conectadas frente a lo que ya funciona en Central.
 13. Ya compila e integra todo el módulo Courier. ¿Qué mensaje de commit con Conventional Commits resume el servicio, el controlador y la ruta web?
+
+
+
+## Módulo: Cliente (Desarrollo e Integración)
+1. En el modelo de Cliente necesito guardar la dirección. ¿Basta con agregar private String address; y mapearlo con @Column(name = "DIRECCION", length = 100, nullable = false) para mantener el mismo estándar de la base de datos?
+
+2. Voy a armar el ClientService y ClientController. ¿Puedo usar exactamente la misma lógica de Status.ACTIVE por defecto y la misma estructura de endpoints (/api/clients) que ya me funcionó en Central y Courier?
+
+3. En el WebRoutesController ya tengo inyectados los servicios de Central y Courier. ¿Simplemente agrego el ClientService a ese mismo constructor y creo el @GetMapping("/clientes") para pasar los datos a la vista de Thymeleaf?

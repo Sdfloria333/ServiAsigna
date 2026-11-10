@@ -36,7 +36,7 @@ public class CentralService {
                 .orElseThrow(() -> new RuntimeException("Central no encontrada con cedula: " + document));
     }
 
-    // FR-C04: Cambiar estado (ACTIVE / INACTIVE)
+    //Cambiar estado (ACTIVE / INACTIVE)
     public Central updateCentralStatus(String document, Status status) {
         Central central = getCentralById(document);
         central.setStatus(status);
