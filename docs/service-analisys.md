@@ -24,6 +24,6 @@ Gestión del ciclo de vida de los pedidos o servicios de domicilio, desde su cre
 - `status`: Enum (`PENDING`, `ASSIGNED`, `IN_TRANSIT`, `DELIVERED`, `CANCELLED`)
 - `createdAt`: LocalDateTime 
 - `deliveredAt`: LocalDateTime 
-- `customerId`: Long 
-- `centralId`: Long 
-- `courierId`: Long
+- `clientId`: String
+- `centralId`: String
+- `courierId`: String
