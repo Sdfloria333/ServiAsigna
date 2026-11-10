@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.serviasigna.proyecto.services.CentralService;
+import com.serviasigna.proyecto.services.ClientService;
 import com.serviasigna.proyecto.services.CourierService;
 
 @Controller
@@ -12,10 +13,12 @@ public class WebRoutesController {
 
     private final CentralService centralService;
     private final CourierService courierService;
+    private final ClientService clientService;
 
-    public WebRoutesController(CentralService centralService, CourierService courierService) {
+    public WebRoutesController(CentralService centralService, CourierService courierService, ClientService clientService) {
         this.centralService = centralService;
         this.courierService = courierService;
+        this.clientService = clientService;
     }
 
     @GetMapping("/")
@@ -38,5 +41,11 @@ public class WebRoutesController {
     public String domiciliarios(Model model) {
         model.addAttribute("listaDomiciliarios", courierService.getAllCouriers());
         return "domiciliarios";
+    }
+
+    @GetMapping("/clientes")
+    public String clientes(Model model) {
+        model.addAttribute("listaClientes", clientService.getAllClients());
+        return "clientes";
     }
 }
