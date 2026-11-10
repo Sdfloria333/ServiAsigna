@@ -8,16 +8,18 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "DOMICILIARIO")
 public class Courier {
-
     @Id
     @Column(name = "CEDULA", length = 20, nullable = false)
     private String document;
+
     @Column(name = "NOMBRE", length = 15, nullable = false)
     private String name;
+
     @Column(name = "TELEFONO", length = 10, nullable = false)
     private String phone;
+
     @Column(name = "ESTADO", length = 10, nullable = false)
-    private String state;
+    private Status status;
 
     public Courier() {
     }
@@ -46,12 +48,11 @@ public class Courier {
         this.phone = phone;
     }
 
-    public String getState() {
-        return state;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(Status status) {
+        this.status = status;
     }
-
 }
