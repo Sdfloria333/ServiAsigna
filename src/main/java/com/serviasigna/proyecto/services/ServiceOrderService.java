@@ -10,15 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.serviasigna.proyecto.models.service.ServiceOrder;
 import com.serviasigna.proyecto.models.service.ServiceStatus;
 import com.serviasigna.proyecto.models.users.Courier;
+import com.serviasigna.proyecto.repositories.CourierRepository;
 import com.serviasigna.proyecto.repositories.ServiceOrderRepository;
 
 @Service
 public class ServiceOrderService {
 
     private final ServiceOrderRepository orderRepository;
+    private final CourierRepository courierRepository;
 
-    public ServiceOrderService(ServiceOrderRepository orderRepository) {
+    public ServiceOrderService(ServiceOrderRepository orderRepository,
+            CourierRepository courierRepository) {
         this.orderRepository = orderRepository;
+        this.courierRepository = courierRepository;
     }
 
     // Busca un servicio por id o lanza un error claro si no existe
@@ -42,19 +46,25 @@ public class ServiceOrderService {
         return orderRepository.findAll();
     }
 
+    // Trae un servicio por id
+    @Transactional(readOnly = true)
+    public ServiceOrder getOrderById(Long orderId) {
+        return findOrderOrThrow(orderId);
+    }
+
     // Asigna un domiciliario a un servicio
     @Transactional
-    public ServiceOrder assignCourier(Long orderId, Courier courier) {
-        if (courier == null) {
-            throw new IllegalArgumentException("El domiciliario no puede ser nulo");
-        }
+    public ServiceOrder assignCourier(Long orderId, String courierDocument) {
+        Courier courier = courierRepository.findById(courierDocument)
+                .orElseThrow(() -> new NoSuchElementException(
+                        "No se encontró el domiciliario con documento: " + courierDocument));
 
         ServiceOrder order = findOrderOrThrow(orderId);
 
         if (order.getStatus() != ServiceStatus.PENDING) {
             throw new IllegalStateException(
                     "Solo se puede asignar domiciliario a un servicio PENDING. Estado actual: "
-                            + order.getStatus());
+                    + order.getStatus());
         }
 
         order.setCourier(courier);
@@ -62,7 +72,7 @@ public class ServiceOrderService {
         return orderRepository.save(order);
     }
 
-    // FR-S04: Actualiza el estado (IN_TRANSIT -> DELIVERED)
+    // Actualiza el estado (IN_TRANSIT -> DELIVERED)
     @Transactional
     public ServiceOrder updateStatus(Long orderId, ServiceStatus newStatus) {
         if (newStatus != ServiceStatus.IN_TRANSIT && newStatus != ServiceStatus.DELIVERED) {
@@ -86,7 +96,7 @@ public class ServiceOrderService {
         return orderRepository.save(order);
     }
 
-    // FR-S05: Cancela el servicio y libera al domiciliario
+    // Cancela el servicio y libera al domiciliario
     @Transactional
     public ServiceOrder cancelOrder(Long orderId) {
         ServiceOrder order = findOrderOrThrow(orderId);
