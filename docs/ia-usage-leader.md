@@ -15,7 +15,7 @@
 
 ---
 
-## Módulo Central (Configuración, Análisis y Desarrollo)
+## Módulo Central 
 
 1. Estoy armando el proyecto en Spring Boot con Java 21 y quiero una carpeta `docs` dentro del repo para llevar los requerimientos y los diagramas en Markdown, uno por módulo. ¿Cómo la organizo?
 2. Para el módulo Central tengo pensado: registrar sede, listar, buscar por identificación y cambiar estado. ¿Me ayudas a ponerlos como RF-C01 a RF-C04 y a redactar la regla de que una central inactiva no puede despachar ni tener repartidores asignados?
@@ -36,7 +36,7 @@
 
 ---
 
-## Módulo Courier / Domiciliario (Análisis, Estandarización e Integración)
+## Módulo Courier / Domiciliario 
 
 1. Voy a empezar `Courier`, que va a la tabla `DOMICILIARIO`. ¿Puedo repetir lo que hice en Central: cédula como llave (20), nombre (15), teléfono (10) y estado (10), para mantener el esquema consistente?
 2. En mi primer borrador de `Courier.java` dejé `private String state`, pero en Central uso el enum `Status`. ¿Qué problemas me trae dejarlo como String y cómo lo cambio?
@@ -54,9 +54,18 @@
 
 
 
-## Módulo: Cliente (Desarrollo e Integración)
+## Módulo: Cliente 
 1. En el modelo de Cliente necesito guardar la dirección. ¿Basta con agregar private String address; y mapearlo con @Column(name = "DIRECCION", length = 100, nullable = false) para mantener el mismo estándar de la base de datos?
 
 2. Voy a armar el ClientService y ClientController. ¿Puedo usar exactamente la misma lógica de Status.ACTIVE por defecto y la misma estructura de endpoints (/api/clients) que ya me funcionó en Central y Courier?
 
 3. En el WebRoutesController ya tengo inyectados los servicios de Central y Courier. ¿Simplemente agrego el ClientService a ese mismo constructor y creo el @GetMapping("/clientes") para pasar los datos a la vista de Thymeleaf?
+
+## Módulo: ServiceOrder 
+1. "Revisa la estructura de variables que propuse para el módulo Servicio y sugiere si falta algún campo operativo para logística real de domicilios."
+
+2. "¿Cuál es la mejor convención de nombres en inglés para una entidad de pedidos en Spring Boot, evitando conflictos con la anotación @Service?"
+
+3. "Analiza este fragmento de código de mi entidad e indícame qué importaciones de jakarta.persistence me faltan para corregir los errores de compilación."
+
+4. "Valida la sintaxis de este diagrama de clases en Mermaid y el formato Markdown del análisis para asegurar que sigan el estándar de documentación del proyecto."
