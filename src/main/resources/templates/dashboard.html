@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Centro de control')}"></head>
+<body>
+<!-- Una sola página con dos vistas (Dashboard y Usuarios). Los datos salen de /api/* -->
+<div class="d-lg-flex">
+    <aside th:replace="~{fragments/layout :: sidebar}"></aside>
+
+    <main class="app-main">
+        <header th:replace="~{fragments/layout :: topbar}"></header>
+
+        <div class="p-3 p-lg-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+                <div>
+                    <h1 class="h4 fw-bold mb-1" id="tituloVista">Centro de control</h1>
+                    <span class="vivo" id="estadoVivo"><span class="punto"></span><span id="textoVivo">En vivo</span> · actualizado <span id="ultimaAct">--:--</span></span>
+                </div>
+                <div th:replace="~{fragments/componentes :: botonesCrear}"></div>
+            </div>
+
+            <div id="errorCarga" class="alert alert-danger small d-none" role="alert"></div>
+
+            <!-- ==================== DASHBOARD ==================== -->
+            <section id="vista-dashboard" aria-label="Monitoreo">
+                <div class="row g-2 g-lg-3 mb-3">
+                    <div class="col-6 col-xl-3"><button type="button" class="sa-card stat-card" data-filtro="pending">
+                        <span class="icono ic-warn"><i class="bi bi-hourglass-split"></i></span>
+                        <span><span class="valor d-block" id="statPend">–</span><span class="titulo">Sin asignar</span></span></button></div>
+                    <div class="col-6 col-xl-3"><button type="button" class="sa-card stat-card" data-filtro="active">
+                        <span class="icono ic-info"><i class="bi bi-bicycle"></i></span>
+                        <span><span class="valor d-block" id="statCurso">–</span><span class="titulo">En curso</span></span></button></div>
+                    <div class="col-6 col-xl-3"><button type="button" class="sa-card stat-card" data-filtro="closed">
+                        <span class="icono ic-ok"><i class="bi bi-check2-circle"></i></span>
+                        <span><span class="valor d-block" id="statEntregados">–</span><span class="titulo">Entregados</span></span></button></div>
+                    <div class="col-6 col-xl-3"><div class="sa-card stat-card">
+                        <span class="icono ic-dark"><i class="bi bi-people"></i></span>
+                        <span><span class="valor d-block" id="statActivos">–</span><span class="titulo">Domiciliarios activos</span></span></div></div>
+                </div>
+
+                <div class="chips mb-3" id="listaDomiciliarios" aria-label="Domiciliarios"></div>
+
+                <div class="row g-3">
+                    <!-- Mapa (primero en celular) -->
+                    <div class="col-xl-7 order-1 order-xl-2">
+                        <div class="sa-card" id="mapaCard">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 p-3 pb-2">
+                                <div><h2 class="h6 fw-bold mb-0">Mapa de operación</h2><small class="text-muted" id="mapaInfo">Cargando…</small></div>
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btnCentrar" title="Centrar en los servicios"><i class="bi bi-bullseye"></i> Centrar</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btnPantalla" title="Pantalla completa (Esc para salir)" aria-label="Pantalla completa"><i class="bi bi-arrows-fullscreen"></i></button>
+                                </div>
+                            </div>
+                            <div class="mapa-wrap">
+                                <div id="mapa" role="application" aria-label="Mapa de Valledupar con los servicios abiertos"></div>
+                                <div class="mapa-leyenda"><span class="me-2"><i class="bi bi-box-seam"></i> Recogida</span><span><i class="bi bi-flag-fill"></i> Entrega</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicios -->
+                    <div class="col-xl-5 order-2 order-xl-1">
+                        <div class="sa-card p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2"><h2 class="h6 fw-bold mb-0">Servicios</h2></div>
+                            <div class="position-relative mb-2">
+                                <i class="bi bi-search position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                                <input id="buscarServicio" type="search" class="form-control ps-5" placeholder="Buscar por dirección, cliente o #… ( / )" aria-label="Buscar servicios">
+                            </div>
+                            <div class="filtros mb-3" role="group" aria-label="Filtrar servicios">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-filtro="open">Abiertos</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-filtro="pending">Pendientes <span class="badge text-bg-warning" id="cntPend">0</span></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-filtro="active">En curso <span class="badge text-bg-primary" id="cntCurso">0</span></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-filtro="closed">Cerrados</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" data-filtro="all">Todos</button>
+                            </div>
+                            <div id="listaServicios" class="lista-servicios d-flex flex-column gap-2" aria-live="polite">
+                                <div class="skel" style="height:150px"></div><div class="skel" style="height:150px"></div><div class="skel" style="height:150px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== USUARIOS ==================== -->
+            <section id="vista-usuarios" class="d-none" aria-label="Usuarios">
+                <div class="sa-card p-3">
+                    <div class="row g-2 mb-3 align-items-center">
+                        <div class="col-12 col-md-auto"><div class="filtros">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-tipo-filtro="all">Todos <span class="badge text-bg-dark" id="cntTodos">0</span></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-tipo-filtro="central">Centrales <span class="badge text-bg-secondary" id="cntCentrales">0</span></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-tipo-filtro="domiciliario">Domiciliarios <span class="badge text-bg-secondary" id="cntDomiciliarios">0</span></button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-tipo-filtro="cliente">Clientes <span class="badge text-bg-secondary" id="cntClientes">0</span></button>
+                        </div></div>
+                        <div class="col-12 col-md position-relative">
+                            <i class="bi bi-search position-absolute top-50 translate-middle-y ms-4 text-muted"></i>
+                            <input id="buscarUsuario" type="search" class="form-control ps-5" placeholder="Buscar por nombre, cédula o teléfono…" aria-label="Buscar usuarios">
+                        </div>
+                    </div>
+                    <table class="table table-hover align-middle mb-0 tabla-apilada tabla-usuarios">
+                        <thead><tr><th>Usuario</th><th>Tipo</th><th>Cédula</th><th>Teléfono</th><th>Dirección</th><th>Estado</th></tr></thead>
+                        <tbody id="tablaUsuarios"></tbody>
+                    </table>
+                    <div id="sinUsuarios" class="vacio d-none"></div>
+                    <p class="mt-3 mb-0 small text-muted">Los usuarios <strong>inactivos</strong> no aparecen para asignar ni para crear servicios.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+
+<div th:replace="~{fragments/modales :: modalServicio}"></div>
+<div th:replace="~{fragments/modales :: modalCliente}"></div>
+<div th:replace="~{fragments/modales :: modalDomiciliario}"></div>
+<div th:replace="~{fragments/modales :: modalCentral}"></div>
+<div th:replace="~{fragments/modales :: modalAsignar}"></div>
+<div th:replace="~{fragments/modales :: modalCancelar}"></div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

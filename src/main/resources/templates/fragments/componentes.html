@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Botones para crear: servicio + menú "Agregar" (cliente, domiciliario, central) -->
+<div th:fragment="botonesCrear" class="d-flex gap-2">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalServicio" title="Atajo: N"><i class="bi bi-plus-lg"></i> Nuevo servicio</button>
+    <div class="dropdown">
+        <button class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-plus"></i> Agregar</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCliente"><i class="bi bi-person me-2"></i>Cliente</button></li>
+            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalDomiciliario"><i class="bi bi-bicycle me-2"></i>Domiciliario</button></li>
+            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCentral"><i class="bi bi-building me-2"></i>Central</button></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

@@ -11,7 +11,8 @@ public interface ServiceOrderRepository extends JpaRepository<ServiceOrder, Long
 
     List<ServiceOrder> findByStatus(ServiceStatus status);
 
-    List<ServiceOrder> findByCourierId(Long courierDocument);
+    List<ServiceOrder> findByCourierDocument(String courierDocument);
 
-    List<ServiceOrder> findByCentralId(String centralDocument);
+    List<ServiceOrder> findByCentralDocument(String centralDocument);
+
 }
