@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="modalServicio" class="modal fade" id="modalServicio" tabindex="-1" aria-labelledby="modalServicioT" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-scrollable">
+        <form class="modal-content" data-form="servicio" novalidate>
+            <div class="modal-header"><h6 class="modal-title fw-bold" id="modalServicioT">Nuevo servicio</h6><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body">
+                <div class="form-error alert alert-danger py-2 small d-none" role="alert"></div>
+                <div id="avisoServicio" class="alert alert-warning small d-none">Necesitas al menos un <strong>cliente</strong> y una <strong>central</strong> activos. Usa <strong>+ Agregar</strong>.</div><div class="row g-3"><div class="col-12 col-sm-6"><label class="form-label" for="sClient">Cliente</label><select id="sClient" class="form-select" required></select><div class="invalid-feedback">Elige un cliente.</div></div><div class="col-12 col-sm-6"><label class="form-label" for="sCentral">Central</label><select id="sCentral" class="form-select" required></select><div class="invalid-feedback">Elige una central.</div></div><div class="col-12 col-sm-6"><label class="form-label" for="sPickup">Dirección de recogida</label><input type="text" id="sPickup" class="form-control" autocomplete="off" required ><div class="invalid-feedback">Escribe la dirección de recogida.</div></div><div class="col-12 col-sm-6"><label class="form-label" for="sDelivery">Dirección de entrega</label><input type="text" id="sDelivery" class="form-control" autocomplete="off" required ><div class="invalid-feedback">Escribe la dirección de entrega.</div></div><div class="col-6"><label class="form-label" for="sShipping">Costo de envío (COP)</label><input type="number" id="sShipping" class="form-control" autocomplete="off" required min="0" value="7000" inputmode="numeric"><div class="invalid-feedback">Ingresa un valor válido.</div></div><div class="col-6"><label class="form-label" for="sItemVal">Valor del producto (COP)</label><input type="number" id="sItemVal" class="form-control" autocomplete="off" required min="0" value="0" inputmode="numeric"><div class="invalid-feedback">Ingresa un valor válido.</div></div><div class="col-12"><label class="form-label" for="sDesc">Descripción del paquete</label><input type="text" id="sDesc" class="form-control" autocomplete="off" required ><div class="invalid-feedback">Describe brevemente el paquete.</div></div><div class="col-12"><div class="form-check"><input class="form-check-input" type="checkbox" id="sPayPickup"><label class="form-check-label" for="sPayPickup">El domiciliario paga en la recogida</label></div></div></div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-primary">Registrar servicio</button></div>
+        </form>
+    </div>
+</div>
+<div th:fragment="modalCliente" class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteT" aria-hidden="true">
+    <div class="modal-dialog  modal-fullscreen-sm-down modal-dialog-scrollable">
+        <form class="modal-content" data-form="cliente" novalidate>
+            <div class="modal-header"><h6 class="modal-title fw-bold" id="modalClienteT">Registrar cliente</h6><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body">
+                <div class="form-error alert alert-danger py-2 small d-none" role="alert"></div>
+                <div class="row g-3"><div class="col-12"><label class="form-label" for="clDoc">Cédula</label><input type="text" id="clDoc" class="form-control" autocomplete="off" required maxlength="20" inputmode="numeric"><div class="invalid-feedback">Obligatoria (máx. 20 caracteres).</div></div><div class="col-12"><label class="form-label" for="clName">Nombre completo</label><input type="text" id="clName" class="form-control" autocomplete="off" required maxlength="50"><div class="invalid-feedback">Obligatorio (máx. 50 caracteres).</div></div><div class="col-12"><label class="form-label" for="clPhone">Teléfono</label><input type="tel" id="clPhone" class="form-control" autocomplete="off" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric"><div class="invalid-feedback">Debe tener 10 dígitos, solo números.</div></div><div class="col-12"><label class="form-label" for="clAddress">Dirección principal</label><input type="text" id="clAddress" class="form-control" autocomplete="off" required maxlength="100"><div class="invalid-feedback">Obligatoria (máx. 100 caracteres).</div></div></div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-dark">Guardar cliente</button></div>
+        </form>
+    </div>
+</div>
+<div th:fragment="modalDomiciliario" class="modal fade" id="modalDomiciliario" tabindex="-1" aria-labelledby="modalDomiciliarioT" aria-hidden="true">
+    <div class="modal-dialog  modal-fullscreen-sm-down modal-dialog-scrollable">
+        <form class="modal-content" data-form="domiciliario" novalidate>
+            <div class="modal-header"><h6 class="modal-title fw-bold" id="modalDomiciliarioT">Registrar domiciliario</h6><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body">
+                <div class="form-error alert alert-danger py-2 small d-none" role="alert"></div>
+                <div class="row g-3"><div class="col-12"><label class="form-label" for="dDoc">Cédula</label><input type="text" id="dDoc" class="form-control" autocomplete="off" required maxlength="20" inputmode="numeric"><div class="invalid-feedback">Obligatoria (máx. 20 caracteres).</div></div><div class="col-12"><label class="form-label" for="dName">Nombre</label><input type="text" id="dName" class="form-control" autocomplete="off" required maxlength="15"><div class="invalid-feedback">Obligatorio (máx. 15 caracteres).</div></div><div class="col-12"><label class="form-label" for="dPhone">Teléfono</label><input type="tel" id="dPhone" class="form-control" autocomplete="off" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric"><div class="invalid-feedback">Debe tener 10 dígitos, solo números.</div></div></div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-dark">Guardar domiciliario</button></div>
+        </form>
+    </div>
+</div>
+<div th:fragment="modalCentral" class="modal fade" id="modalCentral" tabindex="-1" aria-labelledby="modalCentralT" aria-hidden="true">
+    <div class="modal-dialog  modal-fullscreen-sm-down modal-dialog-scrollable">
+        <form class="modal-content" data-form="central" novalidate>
+            <div class="modal-header"><h6 class="modal-title fw-bold" id="modalCentralT">Registrar central</h6><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body">
+                <div class="form-error alert alert-danger py-2 small d-none" role="alert"></div>
+                <div class="row g-3"><div class="col-12"><label class="form-label" for="cDoc">Cédula / ID</label><input type="text" id="cDoc" class="form-control" autocomplete="off" required maxlength="20" inputmode="numeric"><div class="invalid-feedback">Obligatoria (máx. 20 caracteres).</div></div><div class="col-12"><label class="form-label" for="cName">Nombre</label><input type="text" id="cName" class="form-control" autocomplete="off" required maxlength="15"><div class="invalid-feedback">Obligatorio (máx. 15 caracteres).</div></div><div class="col-12"><label class="form-label" for="cPhone">Teléfono</label><input type="tel" id="cPhone" class="form-control" autocomplete="off" required maxlength="10" pattern="[0-9]{10}" inputmode="numeric"><div class="invalid-feedback">Debe tener 10 dígitos, solo números.</div></div></div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-dark">Guardar central</button></div>
+        </form>
+    </div>
+</div>
+<div th:fragment="modalAsignar" class="modal fade" id="modalAsignar" tabindex="-1" aria-labelledby="modalAsignarT" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-fullscreen-sm-down modal-dialog-scrollable">
+        <form class="modal-content" data-form="asignar" novalidate>
+            <div class="modal-header"><h6 class="modal-title fw-bold" id="modalAsignarT">Asignar servicio <span id="asignarTitulo"></span></h6><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body">
+                <div class="form-error alert alert-danger py-2 small d-none" role="alert"></div>
+                <input type="hidden" id="asignarId"><label class="form-label" for="asignarCourier">Domiciliario activo</label><select id="asignarCourier" class="form-select" required></select><div id="avisoAsignar" class="text-danger small mt-2 d-none">No hay domiciliarios activos. Agrega uno con <strong>+ Agregar</strong>.</div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-primary">Asignar ahora</button></div>
+        </form>
+    </div>
+</div>
+<div th:fragment="modalCancelar" class="modal fade" id="modalCancelar" tabindex="-1" aria-labelledby="modalCancelarT" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-fullscreen-sm-down modal-dialog-scrollable">
+        <form class="modal-content" data-form="cancelar" novalidate>
+            <div class="modal-header"><h6 class="modal-title fw-bold" id="modalCancelarT">Cancelar servicio</h6><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button></div>
+            <div class="modal-body">
+                <div class="form-error alert alert-danger py-2 small d-none" role="alert"></div>
+                <input type="hidden" id="cancelarId"><p class="mb-0">¿Seguro que quieres cancelar el servicio <strong id="cancelarTitulo"></strong>? Se liberará al domiciliario y no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button><button type="submit" class="btn btn-danger">Sí, cancelar</button></div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
